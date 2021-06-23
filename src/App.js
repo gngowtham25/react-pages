@@ -1,25 +1,47 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import DisplayComponent from "./Child";
+const axios = require('axios');
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  constructor() {
+    super()
+    this.state = {
+      posts: []
+    };
+  }
+
+  componentDidMount(){
+    axios.get("https://jsonplaceholder.typicode.com/posts")
+    .then(res => {
+      this.setState({
+        posts:res.data
+      })
+    })
+  }
+
+  render() {
+
+    return (
+      <div className="App">
+
+        {
+          this.state.posts && this.state.posts.map((post) => <div>
+            <h3>{post.title}</h3>
+            <p>{post.body}</p>
+            <hr></hr>
+          </div> 
+          )
+        }
+
+        {/* <input value={this.state.value} onChange={ (evt) => this.setState({value: evt.target.value})} type="text" />
+        <button onClick={() => { this.setState({ nextComponentValue: this.state.value }) }}>Submit</button>
+        <DisplayComponent value={this.state.nextComponentValue} /> */}
+
+      </div>
+    );
+  }
 }
 
 export default App;

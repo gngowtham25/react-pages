@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.products{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.card{
+  width: 15%;
+  min-width: 200px;
+  height: auto;
+  margin: 10px;
+  border: 1px solid black;
+  box-shadow: 2px 5px lightgray;
+}
