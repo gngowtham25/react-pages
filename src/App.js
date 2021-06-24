@@ -1,47 +1,33 @@
-import React, { Component } from 'react';
-import './App.css';
-import DisplayComponent from "./Child";
-const axios = require('axios');
+import React from "react"; // imr
+//Components
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-class App extends React.Component {
+import Topbar from "./components/Topbar";
+import Footer from "./components/Footer";
+import Home from "./components/Home";
+import About from "./components/About";
+import Cart from "./components/Cart";
+import Contact from "./components/Contact";
+import PLP from "./components/PLP";
+import PDP from "./components/PDP";
 
-  constructor() {
-    super()
-    this.state = {
-      posts: []
-    };
-  }
+const App = () => {
 
-  componentDidMount(){
-    axios.get("https://jsonplaceholder.typicode.com/posts")
-    .then(res => {
-      this.setState({
-        posts:res.data
-      })
-    })
-  }
-
-  render() {
-
-    return (
-      <div className="App">
-
-        {
-          this.state.posts && this.state.posts.map((post) => <div>
-            <h3>{post.title}</h3>
-            <p>{post.body}</p>
-            <hr></hr>
-          </div> 
-          )
-        }
-
-        {/* <input value={this.state.value} onChange={ (evt) => this.setState({value: evt.target.value})} type="text" />
-        <button onClick={() => { this.setState({ nextComponentValue: this.state.value }) }}>Submit</button>
-        <DisplayComponent value={this.state.nextComponentValue} /> */}
-
-      </div>
-    );
-  }
-}
+  return (
+    <BrowserRouter>
+      <Topbar />
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/products" exact component={PLP} />
+        <Route path="/products/:id" component={PDP} />
+        <Route component={() => <h1>404</h1>} />
+      </Switch>
+      <Footer />
+    </BrowserRouter>
+  );
+};
 
 export default App;
